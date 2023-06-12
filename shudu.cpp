@@ -10,9 +10,34 @@ void Shudu::initState(){
     result.clear();
 }
 
+//位运算 设置i,j位存在gitit
+void Shudu::flip(int i, int j, int digit){
+
+}
+
 //求解数独
 vector<Board> Shudu::solveBoard(Board board){
-    
+    initState();
+    for (int i = 0; i < N; i++){
+        for (int j = 0; j < N; j++){
+            //数独的空位用'$'表示
+            if (board[i][j] == '$'){
+                spaces.push_back(pair<int, int>(i, j));
+            }
+            else{
+                int digit = board[i][j] - '1';
+                //数独终盘的i,j坐标存在digit数
+                flip(i, j, digit);
+            }
+        }
+    }
+    DFS(board, 0);
+    return result;
+}
+
+//DFS进行回溯
+void Shudu::DFS(Board &board, int pos){
+
 }
 
 //打印数独
@@ -38,7 +63,7 @@ Board Shudu::generateBoard(int digCount){
         board[5][i + 3] = row[i + 6] + '1';
     }
 
-    //TODO:矩阵变换以填充其余8个矩阵
+    //矩阵变换以填充其余8个矩阵
     copySquare(board, 3, 3, true);
     copySquare(board, 3, 3, false);
     copySquare(board, 3, 0, false);
@@ -111,8 +136,11 @@ void Shudu::copySquare(Board &board, int src_x, int src_y, bool isRow){
 //测试用
 int main(){
     Shudu player;
-    Board a = player.generateBoard(30);
-    player.printBoard(a);
+    for(int i = 0;i<10;i++){
+        Board a = player.generateBoard(30);
+        player.printBoard(a);
+        cout << endl;
+    }
     system("pause");
     return 0;
 }

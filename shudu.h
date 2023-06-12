@@ -39,10 +39,16 @@ public:
         initState();
     }
 
+    //位运算 设置i,j位存在gitit
+    void flip(int i, int j, int digit);
+
     void initState();//初始化
 
     //求解数独
     vector<Board> solveBoard(Board board);
+
+    //DFS进行回溯
+    void DFS(Board &board, int pos);
 
     //打印数独
     void printBoard(Board &board);
