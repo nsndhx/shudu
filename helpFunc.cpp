@@ -45,3 +45,24 @@ void writeFile(vector<Board> boards, ofstream &f)
         f << "------- " << k << " -------" << endl;
     }
 }
+
+void generateGame(int gameNumber, int gameLevel, vector<int> digCount, ofstream &outfile, Shudu &player)
+{
+    for (int i = 0; i < gameNumber; i++)
+    {
+        int cnt = 0;
+        if (digCount.size() == 1)
+        {
+            cnt = digCount[0];
+        }
+        else
+        {
+            cnt = rand() % (digCount[1] - digCount[0] + 1) + digCount[0];
+        }
+        Board b = player.generateBoard(cnt);
+        vector<Board> bs;
+        bs.push_back(b);
+        writeFile(bs, outfile);
+    }
+    outfile.close();
+}
