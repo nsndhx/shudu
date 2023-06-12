@@ -4,19 +4,28 @@
 #include "shudu.h"
 
 void Shudu::initState(){
+    memset(rowUsed, 0, sizeof(rowUsed));
     memset(columnUsed, 0, sizeof(columnUsed));
     memset(blockUsed, 0, sizeof(blockUsed));
     spaces.clear();
     result.clear();
 }
 
+void Shudu::addResult(Board &board){
+    vector<vector<char> > obj(board);
+    result.push_back(obj);
+}
+
 //位运算 设置i,j位存在gitit
 void Shudu::flip(int i, int j, int digit){
-
+    rowUsed[i] ^= (1 << digit);
+    columnUsed[j] ^= (1 << digit);
+    blockUsed[(i / 3) * 3 + j / 3] ^= (1 << digit);
 }
 
 //求解数独
 vector<Board> Shudu::solveBoard(Board board){
+    
     initState();
     for (int i = 0; i < N; i++){
         for (int j = 0; j < N; j++){
@@ -35,9 +44,29 @@ vector<Board> Shudu::solveBoard(Board board){
     return result;
 }
 
+
+
 //DFS进行回溯
 void Shudu::DFS(Board &board, int pos){
-
+    if (pos == spaces.size()){
+        addResult(board);
+        return;
+    }
+    int i = spaces[pos].first;
+    int j = spaces[pos].second;
+    //mask 能查询出 i,j 的位置不能放哪些数
+    int mask = ~(rowUsed[i] | columnUsed[j] | blockUsed[(i / 3) * 3 + j / 3]) & 0x1ff;
+    int digit = 0;
+    while (mask){
+        if (mask & 1){
+            flip(i, j, digit);
+            board[i][j] = '1' + digit;
+            DFS(board, pos + 1);
+            flip(i, j, digit);
+        }
+        mask = mask >> 1;
+        digit++;
+    }
 }
 
 //打印数独
@@ -77,7 +106,12 @@ Board Shudu::generateBoard(int digCount){
             continue;
         char tmp = board[x][y];
         board[x][y] = '$';
-        //TODO:检验解是否唯一
+        //检验解是否唯一
+        solveBoard(board);
+        if (result.size() == 1)
+            digCount--;
+        else
+            board[x][y] = tmp;
         digCount--;
     }
 
@@ -136,10 +170,21 @@ void Shudu::copySquare(Board &board, int src_x, int src_y, bool isRow){
 //测试用
 int main(){
     Shudu player;
+    Board a = player.generateBoard(30);
+    player.printBoard(a);
     for(int i = 0;i<10;i++){
+        cout<<"round "<<i+1<<endl;
         Board a = player.generateBoard(30);
         player.printBoard(a);
         cout << endl;
+        player.solveBoard(a);
+        int k=0;
+        while(k < player.result.size()){
+            cout<<"result "<<k+1<<endl;
+            player.printBoard(player.result[k]);
+            cout<<endl;
+            k++;
+        }
     }
     system("pause");
     return 0;
