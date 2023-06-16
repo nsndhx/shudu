@@ -28,6 +28,8 @@ typedef vector<vector<char> > Board;
 class Shudu
 {
 private:
+    // 使用位运算来表示某个数是否出现过
+    int rowUsed[N];
     int columnUsed[N];
     int blockUsed[N];
 public:
@@ -39,10 +41,12 @@ public:
         initState();
     }
 
+    void initState();//初始化
+
+    void addResult(Board &board);
+    
     //位运算 设置i,j位存在gitit
     void flip(int i, int j, int digit);
-
-    void initState();//初始化
 
     //求解数独
     vector<Board> solveBoard(Board board);
