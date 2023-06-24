@@ -5,6 +5,72 @@
 #include "getopt.h"         //我们利用一下IBM的命令行输入框架来进行输入的解释
 #pragma warning(disable : 4996)
 
+// 解析输入参数
+map<char, string> parse(int argc, char* argv[])
+{
+    map<char, string> params;
+    int compeleteBoardCount, gameNumber, gameLevel;
+    vector<int> range;
+    string inputFile;
+    char opt = 0;
+    while ((opt = getopt(argc, argv, (char*)"c:s:n:m:r:u")) != -1)
+    {
+        switch (opt)
+        {
+        case 'c':
+        case 's':
+            printf("Sth has been wrong");
+            break;
+        case 'n':
+            gameNumber = atoi(optarg);
+            if (gameNumber < 1 || gameNumber > 10000)
+            {
+                printf("生成数独游戏数量范围在1~10000之间\n");
+                exit(0);
+            }
+            params[opt] = string(optarg);
+            break;
+        case 'm':
+            gameLevel = atoi(optarg);
+            if (gameLevel < 1 || gameLevel > 3)
+            {
+                printf("生成游戏难度的范围在1~3之间\n");
+                exit(0);
+            }
+            params[opt] = string(optarg);
+            break;
+        case 'r':
+            char* p;
+            p = strtok(optarg, "~");
+            while (p)
+            {
+                range.push_back(atoi(p));
+                p = strtok(NULL, "~");
+            }
+            if (range.size() != 2)
+            {
+                printf("请输入一个范围参数\n");
+                exit(0);
+            }
+            if ((range[0] >= range[1]) || range[0] < 20 || range[1] > 55)
+            {
+                printf("请输入合法范围20~55\n");
+                exit(0);
+            }
+            params[opt] = string(optarg);
+            break;
+        case 'u':
+            params[opt] = string();
+            break;
+        default:
+            printf("请输入合法参数\n");
+            exit(0);
+            break;
+        }
+    }
+    return params;
+}
+
 // 需要的数独终盘数量
 void print_c(int argc, char *argv[])
 {
