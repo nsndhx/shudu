@@ -178,3 +178,5 @@ int getopt(int argc, char* argv[], char* opstring)
         return (int)*pArgString;    /* return the letter that matched */
     }
 }
+
+#endif // GETOPT_H
