@@ -9,3 +9,4 @@
 vector<Board> readFile(string filePath);
 void writeFile(vector<Board> boards, ofstream &f);
 void generateGame(int gameNumber, int gameLevel, vector<int> digCount, ofstream &outfile, Shudu &player);
+#endif // HELPFUNC_H
