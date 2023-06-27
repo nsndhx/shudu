@@ -166,26 +166,3 @@ void Shudu::copySquare(Board &board, int src_x, int src_y, bool isRow){
         }
     }
 }
-
-//测试用
-int main(){
-    Shudu player;
-    Board a = player.generateBoard(30);
-    player.printBoard(a);
-    for(int i = 0;i<10;i++){
-        cout<<"round "<<i+1<<endl;
-        Board a = player.generateBoard(30);
-        player.printBoard(a);
-        cout << endl;
-        player.solveBoard(a);
-        int k=0;
-        while(k < player.result.size()){
-            cout<<"result "<<k+1<<endl;
-            player.printBoard(player.result[k]);
-            cout<<endl;
-            k++;
-        }
-    }
-    system("pause");
-    return 0;
-}
