@@ -72,3 +72,4 @@ public:
     void copySquare(Board &board, int src_x, int src_y, bool isRow);
 };
 
+#endif // SHUDU_H
