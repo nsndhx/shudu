@@ -5,6 +5,10 @@
         求解数独；
         打印数独
 */
+
+#ifndef SHUDU_H
+#define SHUDU_H
+
 #include <iostream>
 #include <string>
 #include <string.h>
