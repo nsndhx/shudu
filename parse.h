@@ -15,3 +15,4 @@ void print_n(int argc, char *argv[]);//需要的游戏数量
 void print_m(int argc, char *argv[]);//生成游戏的难度
 void print_r(int argc, char *argv[]);//生成游戏中挖空的数量范围
 void print_u(int argc, char *argv[]);//打印游戏的解唯一
+#endif // PARSE_H
