@@ -68,6 +68,9 @@
   * No errors are defined.
   *****************************************************************************/
 
+#ifndef GETOPT_H
+#define GETOPT_H
+
 #include <stdio.h>                  /* for EOF */
 #include <string.h>                 /* for strchr() */
 
