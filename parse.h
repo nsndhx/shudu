@@ -1,6 +1,10 @@
 /*
     该函数用来处理读入的命令，并对应进行功能的实现
 */
+
+#ifndef HELPFUNC_H
+#define HELPFUNC_H
+
 #include "helpFunc.h"
 
 map<char, string> parse(int argc, char *argv[]);//解析输入参数
